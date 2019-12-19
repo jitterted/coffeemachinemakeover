@@ -31,4 +31,11 @@ public class Ingredient implements Comparable<Ingredient> {
     return stock;
   }
 
+  public void reduceInventoryBy(int quantity) {
+    stock -= quantity;
+  }
+
+  public boolean hasSufficientStockFor(int quantity) {
+    return stock < quantity;
+  }
 }

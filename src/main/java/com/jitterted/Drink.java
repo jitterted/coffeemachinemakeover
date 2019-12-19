@@ -12,14 +12,7 @@ public class Drink implements Comparable<Drink> {
   }
 
   public void updateDrinkState() {
-    Recipe recipe = getRecipe();
-    for (Ingredient ingredient : recipe.ingredients()) {
-      if (ingredient.getStock() < recipe.quantityNeededFor(ingredient)) {
-        setMakeable(false);
-        return;
-      }
-      setMakeable(true);
-    }
+    setMakeable(recipe.isMakeable());
   }
 
   public int compareTo(Drink drink) {
@@ -54,4 +47,7 @@ public class Drink implements Comparable<Drink> {
     return makeable;
   }
 
+  public void dispense() {
+    recipe.dispense();
+  }
 }

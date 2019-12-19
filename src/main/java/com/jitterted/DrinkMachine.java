@@ -100,13 +100,7 @@ public class DrinkMachine {
 
   public static void updateCosts() {
     for (Drink drink : drinkList) {
-      double cost = 0;
-      Recipe recipe = drink.getRecipe();
-      for (Ingredient ingredient : ingredientList) {
-        if (recipe.hasIngredient(ingredient)) {
-          cost += ingredient.getCost() * recipe.quantityNeededFor(ingredient);
-        }
-      }
+      double cost = drink.getRecipe().cost();
       drink.setCost(cost);
     }
   }
@@ -114,12 +108,7 @@ public class DrinkMachine {
   public static void makeDrink(Drink drink) {
     if (drink.getMakeable()) {
       System.out.println("Dispensing: " + drink.getName() + "\n");
-      for (Ingredient ingredient : ingredientList) {
-        Recipe recipe = drink.getRecipe();
-        if (recipe.hasIngredient(ingredient)) {
-          ingredient.setStock(ingredient.getStock() - recipe.quantityNeededFor(ingredient));
-        }
-      }
+      drink.dispense();
     } else {
       System.out.println("Out of stock: " + drink.getName() + "\n");
     }
@@ -135,7 +124,8 @@ public class DrinkMachine {
     display(System.out);
   }
 
-  public static void addAllIngredients() {
+  public static List<Ingredient> addAllIngredients() {
+    ingredientList.clear();
     ingredientList.add(new Ingredient(COFFEE, 0.75));
     ingredientList.add(new Ingredient(DECAF_COFFEE, 0.75));
     ingredientList.add(new Ingredient(SUGAR, 0.25));
@@ -147,6 +137,8 @@ public class DrinkMachine {
     ingredientList.add(new Ingredient(WHIPPED_CREAM, 1.00));
 
     Collections.sort(ingredientList);
+
+    return ingredientList;
   }
 
   public static void addAllDrinks() {

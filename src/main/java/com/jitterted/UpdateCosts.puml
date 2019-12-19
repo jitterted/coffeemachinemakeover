@@ -1,0 +1,10 @@
+@startuml
+
+DrinkMachine -> Drink: getRecipe()
+DrinkMachine <- Drink: Recipe
+DrinkMachine -> Recipe: hasIngredient()?
+DrinkMachine -> Ingredient: getCost()
+DrinkMachine -> Recipe: quantityNeededFor(ingredient)
+DrinkMachine -> Drink: setCost(cost)
+
+@enduml
